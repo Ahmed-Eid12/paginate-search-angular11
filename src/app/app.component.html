@@ -1,0 +1,47 @@
+<div class="container">
+  <h3 class="text-center mt-5 mb-5">
+    Angular Basic Pagination Example
+  </h3>
+
+  <div class="d-flex flex-row-reverse bd-highlight mb-2">
+    <div class="p-2 bd-highlight">
+      <select (change)="onTableSizeChange($event)" class="custom-select">
+        <option *ngFor="let size of tableSizes" [ngValue]="size">
+          {{ size }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="content-search">
+    <input [(ngModel)]="searchValue" placeholder="Search..">
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let post of POSTS | search: searchValue  | paginate : {
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: count
+              };
+        ">
+        <th scope="row">{{post.name}}</th>
+        <td>{{post.area}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-center">
+    <pagination-controls 
+      previousLabel="السابق" 
+      nextLabel="التالى" 
+      (pageChange)="onTableDataChange($event)">
+    </pagination-controls>
+  </div>
+
+</div>
